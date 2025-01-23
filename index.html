@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Salesforce Live Chat</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
     <style>
         /* Estilo general de la página */
         body {
@@ -68,6 +69,7 @@
     <script src="https://service.force.com/embeddedservice/5.0/esw.min.js"></script>
     <script>
         var initESW = function (gslbBaseURL) {
+            console.log("Inicializando servicio incrustado..."); // Agregar registro en la consola
             embedded_svc.settings.displayHelpButton = false; // Desactiva el botón flotante
             embedded_svc.settings.language = 'es'; // Cambia el idioma si es necesario
             embedded_svc.settings.targetElement = '#chat-root'; // Vincula el chat al contenedor
@@ -91,9 +93,13 @@
 
         if (!window.embedded_svc) {
             var s = document.createElement('script');
-            s.setAttribute('src', 'https://brave-otter-i88n1w-dev-ed.trailblaze.my.salesforce.com/embeddedservice/5.0/esw.min.js');
+            s.setAttribute('src', 'https://service.force.com/embeddedservice/5.0/esw.min.js');
             s.onload = function () {
+                console.log("Script del chat cargado correctamente."); // Agregar registro en la consola
                 initESW(null);
+            };
+            s.onerror = function () {
+                console.error("Error al cargar el script del chat."); // Agregar registro de error en la consola
             };
             document.body.appendChild(s);
         } else {
